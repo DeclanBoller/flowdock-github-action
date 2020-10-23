@@ -1,11 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'flowdock-github-action'
+description: 'Github action to flowdock chat'
+author: 'Declan Boller'
 inputs:
-  milliseconds: # change this
+  flowdock-bot-user-oauth-access-token:
+    description: 'Bot user OAuth access token'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  channel:
+    description: 'Flowdock Channel'
+    required: true
+  text:
+    description: 'The message to send to the channel'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

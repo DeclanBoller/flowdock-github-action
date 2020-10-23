@@ -1,16 +1,17 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import flowdock from './flowdock'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    // get the token, channel, and message from inputs
+    const token: string = core.getInput('flowdock-bot-user-oauth-access-token')
+    const channel: string = core.getInput('channel')
+    const message: string = core.getInput('text')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    // post a message in flowdock
+    const response = await flowdock({token, channel, message})
 
-    core.setOutput('time', new Date().toTimeString())
+    core.debug(JSON.stringify(response, null, 2))
   } catch (error) {
     core.setFailed(error.message)
   }
