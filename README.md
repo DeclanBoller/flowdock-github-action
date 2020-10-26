@@ -17,13 +17,13 @@ This Action allows you to send messages to Flowdock from your Github Actions.
 
 **Required: Github Action Parameters:**
 
-- `flowdock-bot-user-oauth-access-token` - `SLACK_BOT_USER_OAUTH_ACCESS_TOKEN` secret
+- `flowdock-bot-user-oauth-access-token` - `FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN` secret
 
 - `channel` - The channel where you want the message
 
 - `text` - The text of the message
 
-## Sample Action file with Slack Channel and Text
+## Sample Action file with Flowdock Channel and Text
 
 ```yml
 name: flowdock-notification
