@@ -1,0 +1,17 @@
+name: flowdock-notification
+
+on: pull_request
+
+jobs:
+  flowdock-notifications:
+    runs-on: ubuntu-latest
+    name: Sends a message to Flowdock when a pull request is made
+    steps:
+      - name: Send message to Flowdock API
+        uses: DeclanBoller/github-actions-flowdock@v1.0.0
+        with:
+          flowdock-bot-user-oauth-access-token: ${{ secrets.FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN }}
+          channel: test
+          text: "@@team, ${{github.actor}} opened a new PR in ${{ github.repository }}\nView the PR here: ${{github.base_ref}}"
+      - name: Result from "Send Message"
+        run: echo "The result was ${{ steps.notify.outputs.flowdock-result }}"
