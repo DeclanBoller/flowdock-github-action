@@ -10,6 +10,9 @@ async function run(): Promise<void> {
 
     // post a message in flowdock
     const response = await flowdock({token, channel, message})
+    const responseAsJson = JSON.stringify(response, null, 2)
+
+    core.setOutput('flowdock-result', responseAsJson)
 
     core.debug(JSON.stringify(response, null, 2))
   } catch (error) {

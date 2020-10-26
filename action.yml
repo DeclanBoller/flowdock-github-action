@@ -11,6 +11,9 @@ inputs:
   text:
     description: 'The message to send to the channel'
     required: true
+outputs:
+  flowdock-result:
+    description: 'The result from the post to flowdock'
 runs:
   using: 'node12'
   main: 'dist/index.js'
