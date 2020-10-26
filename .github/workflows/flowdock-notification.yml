@@ -8,7 +8,7 @@ jobs:
     name: Sends a message to Flowdock when a pull request is made
     steps:
       - name: Send message to Flowdock API
-        uses: DeclanBoller/github-actions-flowdock@v1.0.0
+        uses: ./
         with:
           flowdock-bot-user-oauth-access-token: ${{ secrets.FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN }}
           channel: test
