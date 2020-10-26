@@ -1,103 +1,46 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+# Github Action for sending message to Flowdock
 
-# Create a JavaScript Action using TypeScript
+This Action allows you to send messages to Flowdock from your Github Actions.
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+## Requirements
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+1. Flowdock Channel
+2. A Flowdock App - Which will be used to send messages to your channel.
+3. A Github Action - the place where you want to send Flowdock messages
+4. Github Secret - the Flowdock App auth token, used when posting messages to Flowdock API.
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+## Setup
 
-## Create an action from this template
+**Required: Github Repository Secret:**
 
-Click the `Use this Template` and provide the new repo details for your action
+- `FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN` - This is the Flowdock App token, the credentials for allowing you to send messages from Github to Flowdock.
 
-## Code in Main
+**Required: Github Action Parameters:**
 
-Install the dependencies  
-```bash
-$ npm install
+- `flowdock-bot-user-oauth-access-token` - `SLACK_BOT_USER_OAUTH_ACCESS_TOKEN` secret
+
+- `channel` - The channel where you want the message
+
+- `text` - The text of the message
+
+## Sample Action file with Slack Channel and Text
+
+```yml
+name: flowdock-notification
+
+on: pull_request
+
+jobs:
+  flowdock-notifications:
+    runs-on: ubuntu-latest
+    name: Sends a message to Flowdock when a pull request is made
+    steps:
+      - name: Send message to Flowdock API
+        uses: DeclanBoller/github-actions-flowdock@v1.0.0
+        with:
+          flowdock-bot-user-oauth-access-token: ${{ secrets.FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN }}
+          channel: test
+          text: "@@team, ${{github.actor}} opened a new PR in ${{ github.repository }}\nView the PR here: ${{github.base_ref}}"
+      - name: Result from "Send Message"
+        run: echo "The result was ${{ steps.notify.outputs.flowdock-result }}"
 ```
-
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
-
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
