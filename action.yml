@@ -1,13 +1,13 @@
-name: "flowdock-github-action"
-description: "Github action to flowdock chat"
-author: "Declan Boller"
+name: 'flowdock-github-action'
+description: 'Github action to flowdock chat'
+author: 'Declan Boller'
 inputs:
   flowdock-bot-access-token:
-    description: "Bot user OAuth access token"
+    description: 'Bot access token'
     required: true
   text:
-    description: "The message to send to the channel"
+    description: 'The message to send to the channel'
     required: true
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'node12'
+  main: 'dist/index.js'

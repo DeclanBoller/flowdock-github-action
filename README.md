@@ -99,3 +99,19 @@ Further reading on Webhook events and payloads (Pull Requests)
 | `github.head_ref`                      | The source branch of the pull request in a workflow run (only available if workflow run is `pull_request`) |
 | `github.base_ref`                      | The target branch of the pull request in a workflow run (only available if workflow run is `pull_request`) |
 | `github.repository`                    | The owner and repository name.                                                                             |
+
+## Development and Testing
+
+Look in the `package.json` for the commands you can run, there are scripts for prettier, linting, building and testing.
+
+If you are forking this or contributing don't forget to run `yarn all` before merging your work.
+
+To run the main test:
+
+```
+env FLOWDOCK_TEST_TOKEN=<YOUR TOKEN> TEXT="Test" yarn ava __tests__/main.test.ts
+```
+
+To debug action and see what payload is being sent to slack, enable debugging:
+
+https://docs.github.com/en/actions/configuring-and-managing-workflows/managing-a-workflow-run#enabling-debug-logging
