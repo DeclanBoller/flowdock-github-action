@@ -1,20 +1,18 @@
 import got from 'got'
 
-const api = got.extend({prefixUrl: 'https://api.flowdock.com'})
+const api = got.extend({prefixUrl: 'https://api.flowdock.com/messages'})
 
 type PostOptions = {
   token: string
-  channel: string
   message: string
 }
 
 export default async function flowdock({
-  channel,
   message,
   token
 }: PostOptions): Promise<unknown> {
   const response = await api
-    .post(`flows/blake/${channel}/messages`, {
+    .post({
       json: {
         event: 'message',
         flow_token: token,

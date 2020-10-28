@@ -1,6 +1,9 @@
 name: flowdock-notification
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - master
 
 jobs:
   flowdock-notifications:
@@ -10,8 +13,5 @@ jobs:
       - name: Send message to Flowdock API
         uses: ./
         with:
-          flowdock-bot-user-oauth-access-token: ${{ secrets.FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN }}
-          channel: test
-          text: "@@team, ${{github.actor}} opened a new PR in ${{ github.repository }}\nView the PR here: ${{github.base_ref}}"
-      - name: Result from "Send Message"
-        run: echo "The result was ${{ steps.notify.outputs.flowdock-result }}"
+          flowdock-bot-access-token: ${{ secrets.TEAM_FLOW_ACCESS_TOKEN }}
+          text: "@team, ${{ github.event.pull_request.title }}\n${{ github.event.pull_request.html_url }}"
