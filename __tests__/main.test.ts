@@ -5,8 +5,13 @@ import flowdock from '../src/flowdock'
 test('test runs', async t => {
   t.timeout(10000)
 
+  if (!process.env.FLOWDOCK_TEST_TOKEN || !process.env.TEXT) {
+    console.error('Missing env values')
+    return
+  }
+
   const token = `${process.env.FLOWDOCK_TEST_TOKEN}`
-  const message = 'Just another spam test, please ignore'
+  const message = `${process.env.TEXT}`
 
   const result = await flowdock({
     message,

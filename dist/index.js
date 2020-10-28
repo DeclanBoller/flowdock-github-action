@@ -3038,25 +3038,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
-const got_1 = __importDefault(__webpack_require__(61));
-const flowdock = got_1.default.extend({ prefixUrl: 'https://api.flowdock.com' });
+const flowdock_1 = __importDefault(__webpack_require__(283));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // get the token, channel, and message from inputs
+            // get the token and message from inputs
             const token = core.getInput('flowdock-bot-user-oauth-access-token');
-            const channel = core.getInput('channel');
             const message = core.getInput('text');
             // post a message in flowdock
-            const response = yield flowdock
-                .post(`flows/blake/${channel}/messages`, {
-                json: {
-                    event: 'message',
-                    flow_token: token,
-                    content: message
-                }
-            })
-                .json();
+            const response = yield flowdock_1.default({ token, message });
+            const responseAsJson = JSON.stringify(response, null, 2);
+            core.setOutput('flowdock-result', responseAsJson);
             core.debug(JSON.stringify(response, null, 2));
         }
         catch (error) {
@@ -4209,6 +4201,45 @@ function toCommandValue(input) {
 }
 exports.toCommandValue = toCommandValue;
 //# sourceMappingURL=utils.js.map
+
+/***/ }),
+
+/***/ 283:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const got_1 = __importDefault(__webpack_require__(61));
+const api = got_1.default.extend({ prefixUrl: 'https://api.flowdock.com/messages' });
+function flowdock({ message, token }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield api
+            .post({
+            json: {
+                event: 'message',
+                flow_token: token,
+                content: message
+            }
+        })
+            .json();
+        return response;
+    });
+}
+exports.default = flowdock;
+
 
 /***/ }),
 
