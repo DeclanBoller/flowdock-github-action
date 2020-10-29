@@ -3043,7 +3043,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // get the token and message from inputs
-            const token = core.getInput('flowdock-bot-user-oauth-access-token');
+            const token = core.getInput('flowdock-bot-access-token');
             const message = core.getInput('text');
             // post a message in flowdock
             const response = yield flowdock_1.default({ token, message });
