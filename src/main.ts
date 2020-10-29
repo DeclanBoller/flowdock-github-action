@@ -4,7 +4,7 @@ import flowdock from './flowdock'
 async function run(): Promise<void> {
   try {
     // get the token and message from inputs
-    const token: string = core.getInput('flowdock-bot-user-oauth-access-token')
+    const token: string = core.getInput('flowdock-bot-access-token')
     const message: string = core.getInput('text')
 
     // post a message in flowdock
