@@ -13,13 +13,11 @@ This Action allows you to send messages to Flowdock from your Github Actions.
 
 **Required: Github Repository Secret:**
 
-- `FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN` - This is the Flowdock App token, the credentials for allowing you to send messages from Github to Flowdock.
+- `TEAM_FLOW_ACCESS_TOKEN` - This is the Flowdock App token, the credentials for allowing you to send messages from Github to Flowdock.
 
 **Required: Github Action Parameters:**
 
-- `flowdock-bot-user-oauth-access-token` - `FLOWDOCK_BOT_USER_OAUTH_ACCESS_TOKEN` secret
-
-- `channel` - The channel where you want the message
+- `flowdock-bot-access-token` - `TEAM_FLOW_ACCESS_TOKEN` secret
 
 - `text` - The text of the message
 
